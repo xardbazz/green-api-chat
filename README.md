@@ -1,32 +1,53 @@
-# React + TypeScript + Vite
+# Green-API Chat — Тестовое задание
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Простой чат-интерфейс на React + TypeScript для отправки и приёма сообщений через Green-API.
 
-Currently, two official plugins are available:
+**Live demo:** [https://green-api-chat-9sac7i4ua-green-api.vercel.app/]
+**GitHub:** [https://github.com/xardbazz/green-api-chat]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Стек
+- React 18 + TypeScript (Vite)
+- Axios
+- Обычный CSS (тёмная тема через `prefers-color-scheme`)
 
-## React Compiler
+## Запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+Открывается на http://localhost:5173
 
-## Expanding the Oxlint configuration
+Вход в систему
+Логин не по паролю, а по реквизитам аккаунта Green-API: idInstance и apiTokenInstance.
+Оба берутся в личном кабинете. Перед использованием нужно отсканировать QR-код в кабинете,
+пока состояние инстанса не станет authorized.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Форма входа проверяет это через getStateInstance и показывает ошибку, если инстанс не авторизован.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+Использование
+Ввести номер получателя в формате 79999999999 и нажать Start Chat.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Печатать в поле снизу, нажать Send.
+
+Входящие сообщения подтягиваются поллингом receiveNotification раз в 3 секунды. Каждое
+уведомление сразу удаляется через deleteNotification, чтобы Green-API не присылал его повторно.
+
+Что реализовано
+Отправка и приём текстовых сообщений в личных чатах и группах (id группы начинается с -).
+
+Дедупликация входящих по idMessage — защита от повторной доставки одного и того же уведомления.
+
+Отправленное сообщение отображается в интерфейсе сразу, без ожидания webhook-эха.
+
+Поддержка форматов WhatsApp (textMessageData) и MAX/Telegram (extendedTextMessageData).
+
+Тёмная тема подхватывается от системной настройки.
+
+Ограничения
+Обрабатывается только текст. Изображения, файлы и стикеры игнорируются.
+
+Базовая валидация ввода — некорректный номер уходит в API и возвращается ошибкой.
+
+Контакты
+Telegram: [@issakam]
+Email: [kamalissa96@gmail.com]
