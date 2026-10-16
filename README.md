@@ -16,6 +16,7 @@
 npm install
 npm run dev
 Открывается на http://localhost:5173
+```
 
 Вход в систему
 Логин не по паролю, а по реквизитам аккаунта Green-API: idInstance и apiTokenInstance.
@@ -47,7 +48,3 @@ npm run dev
 Обрабатывается только текст. Изображения, файлы и стикеры игнорируются.
 
 Базовая валидация ввода — некорректный номер уходит в API и возвращается ошибкой.
-
-Контакты
-Telegram: [@issakam]
-Email: [kamalissa96@gmail.com]
